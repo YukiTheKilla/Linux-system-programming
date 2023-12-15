@@ -55,10 +55,8 @@ class PortScannerGUI:
         ip_addresses_str = self.ip_entry.get()
         user_specified_ports_str = self.port_entry.get()
 
-        # Extract and clean up IP addresses
         ip_addresses = [ip.strip() for ip in ip_addresses_str.split(',')]
 
-        # Validate and filter out empty strings and non-numeric values
         user_specified_ports = [int(port.strip()) for port in user_specified_ports_str.split(',') if port.strip().isdigit()]
         for ip_address in ip_addresses:
             ip_info = await self.get_ip_info(ip_address)
@@ -95,13 +93,10 @@ class PortScannerGUI:
                     return None
                 
     def save_results(self):
-        # Get the current content of the text area
         results_text = self.text_area.get("1.0", tk.END)
 
-        # Get the directory of the script
         script_directory = os.path.dirname(os.path.abspath(__file__))
 
-        # Save the content to a JSON file in the same directory
         file_path = os.path.join(script_directory, "results.txt")
         with open(file_path, "w") as file:
             file.write(results_text)
